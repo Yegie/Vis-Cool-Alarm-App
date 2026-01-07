@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">Vi\'s Cool Alarm App</string>
     <string name="alarms">Alarms</string>
+    <string name="automatically_delete_unused_alarms">Automatically delete unused alarms</string>
+    <string name="support_me_on_kofi_button_content_desc">Support me on Kofi Button</string>
 </resources>

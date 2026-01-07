@@ -1,6 +1,5 @@
 package vi.alarm.app.comps
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -16,7 +15,8 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -30,7 +30,7 @@ internal fun BottomBarView(
     modifier: Modifier = Modifier,
     viewModel: AlarmAppViewModel = viewModel()
 ) {
-    val currentScreen = remember { viewModel.currentScreen }
+    val currentScreen by viewModel.currentScreen.collectAsState()
 
     Row(
         modifier = Modifier
@@ -44,25 +44,23 @@ internal fun BottomBarView(
         IconButton(
             onClick = {
                 viewModel.setScreen(Screen.Alarms)
-                Log.d("tmp", viewModel.currentScreen.toString())
             }
         ) {
             Icon(
-                imageVector = if (currentScreen.value == Screen.Alarms) Icons.Filled.Alarm else Icons.Outlined.Alarm,
+                imageVector = if (currentScreen == Screen.Alarms) Icons.Filled.Alarm else Icons.Outlined.Alarm,
                 contentDescription = "Alarm Icon",
-                tint = if (currentScreen.value == Screen.Alarms) MaterialTheme.colorScheme.onPrimaryContainer else MaterialTheme.colorScheme.background
+                tint = if (currentScreen == Screen.Alarms) MaterialTheme.colorScheme.onPrimaryContainer else MaterialTheme.colorScheme.background
             )
         }
         IconButton(
             onClick = {
                 viewModel.setScreen(Screen.Settings)
-                Log.d("tmp", viewModel.currentScreen.toString())
             }
         ) {
             Icon(
-                imageVector = if (currentScreen.value == Screen.Settings) Icons.Filled.Settings else Icons.Outlined.Settings,
+                imageVector = if (currentScreen == Screen.Settings) Icons.Filled.Settings else Icons.Outlined.Settings,
                 contentDescription = "Settings Icon",
-                tint = if (currentScreen.value == Screen.Settings) MaterialTheme.colorScheme.onPrimaryContainer else MaterialTheme.colorScheme.background
+                tint = if (currentScreen == Screen.Settings) MaterialTheme.colorScheme.onPrimaryContainer else MaterialTheme.colorScheme.background
             )
         }
     }
