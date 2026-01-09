@@ -22,6 +22,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import vi.alarm.app.ui.theme.ViAlarmAppTheme
 
+//todo 9patch rect with pixel art? maybe like a wooden sign?
+
 @Composable
 internal fun ToggleButtonView(
     text: String,
@@ -57,7 +59,7 @@ internal fun ToggleButtonView(
                 text = text,
                 style = MaterialTheme.typography.bodyLarge
             )
-            Icon(
+            Icon(//todo replace with pixel art checkbox
                 imageVector = if (toggled) Icons.Filled.ToggleOn else Icons.Outlined.ToggleOff,
                 contentDescription = null
             )
@@ -78,7 +80,7 @@ private fun Preview() {
             ToggleButtonView("Sample Toggled On",true, {})
             ToggleButtonView("Sample Toggled Off",false, {})
             ToggleButtonView("Sample Disabled",false, {}, enabled = false)
-            ToggleButtonView("Sample With a really long text that should wrap onto a second line",true, {})
+            ToggleButtonView("Sample with a really long text that should wrap onto a second line",true, {})
         }
     }
 }

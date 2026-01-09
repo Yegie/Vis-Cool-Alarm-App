@@ -3,8 +3,11 @@ package vi.alarm.app.comps
 import android.app.Activity
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.LocalActivity
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Devices.PIXEL_9
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -20,7 +23,12 @@ internal fun AlarmScreenView(viewModel: AlarmAppViewModel = viewModel()) {
         activity.get()?.finish()
     }
 
-    Text("We are on the alarms screen")
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+    ) {
+        Text("We are on the alarms screen")
+    }
 }
 
 @Preview(showBackground = true, device = PIXEL_9)

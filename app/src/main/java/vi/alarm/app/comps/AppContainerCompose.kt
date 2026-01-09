@@ -1,7 +1,14 @@
 package vi.alarm.app.comps
 
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.WindowInsetsSides
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.only
+import androidx.compose.foundation.layout.safeDrawing
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -14,6 +21,7 @@ import androidx.compose.ui.tooling.preview.Devices.PIXEL_9
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.IntSize
 import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.constraintlayout.compose.Dimension
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -61,22 +69,28 @@ internal fun AppContainerView(viewModel: AlarmAppViewModel = viewModel()) {
                 },
             viewModel = viewModel
         )
-        NavHost(
+        Box(
             modifier = Modifier
+                .fillMaxWidth()
                 .constrainAs(navHost) {
-                    start.linkTo(parent.start)
-                    end.linkTo(parent.end)
                     top.linkTo(parent.top)
                     bottom.linkTo(bottomBar.top)
-                },
-            navController = navController,
-            startDestination = Screen.Settings.toString()
+                    height = Dimension.fillToConstraints
+                }
+                .windowInsetsPadding(
+                    WindowInsets.safeDrawing.only(WindowInsetsSides.Top)
+                )
         ) {
-            composable(Screen.Alarms.name) {
-                AlarmScreenView(viewModel = viewModel)
-            }
-            composable(Screen.Settings.name) {
-                SettingsScreenView(viewModel = viewModel)
+            NavHost(
+                navController = navController,
+                startDestination = Screen.Alarms.toString()
+            ) {
+                composable(Screen.Alarms.name) {
+                    AlarmScreenView(viewModel = viewModel)
+                }
+                composable(Screen.Settings.name) {
+                    SettingsScreenView(viewModel = viewModel)
+                }
             }
         }
     }
