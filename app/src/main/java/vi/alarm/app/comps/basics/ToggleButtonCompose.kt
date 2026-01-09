@@ -1,5 +1,6 @@
 package vi.alarm.app.comps.basics
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -20,8 +21,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import vi.alarm.app.ui.theme.ViAlarmAppTheme
-
-//198 height
 
 @Composable
 internal fun ToggleButtonView(
@@ -72,11 +71,11 @@ internal fun ToggleButtonView(
 private fun Preview() {
     ViAlarmAppTheme {
         Column(
-            modifier = Modifier,
+            modifier = Modifier
+                .background(MaterialTheme.colorScheme.background),
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             ToggleButtonView("Sample Toggled On",true, {})
-
             ToggleButtonView("Sample Toggled Off",false, {})
             ToggleButtonView("Sample Disabled",false, {}, enabled = false)
             ToggleButtonView("Sample With a really long text that should wrap onto a second line",true, {})

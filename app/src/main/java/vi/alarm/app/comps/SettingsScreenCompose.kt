@@ -31,6 +31,8 @@ import vi.alarm.app.Screen
 import vi.alarm.app.comps.basics.ToggleButtonView
 import vi.alarm.app.ui.theme.ViAlarmAppTheme
 
+//todo pull up on chains when selected :P
+
 @Composable
 internal fun SettingsScreenView(viewModel: AlarmAppViewModel = viewModel()) {
     val uriHandler = LocalUriHandler.current

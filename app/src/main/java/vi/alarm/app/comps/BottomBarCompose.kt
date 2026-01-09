@@ -2,8 +2,10 @@ package vi.alarm.app.comps
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material.icons.Icons
@@ -25,6 +27,8 @@ import vi.alarm.app.AlarmAppViewModel
 import vi.alarm.app.Screen
 import vi.alarm.app.ui.theme.ViAlarmAppTheme
 
+//todo redo to buttons to use text instead of icons and a cooler display to hold them
+
 @Composable
 internal fun BottomBarView(
     modifier: Modifier = Modifier,
@@ -32,36 +36,42 @@ internal fun BottomBarView(
 ) {
     val currentScreen by viewModel.currentScreen.collectAsState()
 
-    Row(
+    Box(
         modifier = Modifier
-            .fillMaxWidth()
-            .wrapContentHeight()
             .background(MaterialTheme.colorScheme.primaryContainer)
-            .padding(horizontal = 8.dp, vertical = 4.dp)
-            .then(modifier),
-        horizontalArrangement = Arrangement.SpaceEvenly
+            .navigationBarsPadding()
+            .then(modifier)
     ) {
-        IconButton(
-            onClick = {
-                viewModel.setScreen(Screen.Alarms)
-            }
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .wrapContentHeight()
+                .padding(horizontal = 8.dp, vertical = 4.dp)
+                .then(modifier),
+            horizontalArrangement = Arrangement.SpaceEvenly
         ) {
-            Icon(
-                imageVector = if (currentScreen == Screen.Alarms) Icons.Filled.Alarm else Icons.Outlined.Alarm,
-                contentDescription = "Alarm Icon",
-                tint = if (currentScreen == Screen.Alarms) MaterialTheme.colorScheme.onPrimaryContainer else MaterialTheme.colorScheme.background
-            )
-        }
-        IconButton(
-            onClick = {
-                viewModel.setScreen(Screen.Settings)
+            IconButton(
+                onClick = {
+                    viewModel.setScreen(Screen.Alarms)
+                }
+            ) {
+                Icon(
+                    imageVector = if (currentScreen == Screen.Alarms) Icons.Filled.Alarm else Icons.Outlined.Alarm,
+                    contentDescription = "Alarm Icon",
+                    tint = if (currentScreen == Screen.Alarms) MaterialTheme.colorScheme.onPrimaryContainer else MaterialTheme.colorScheme.background
+                )
             }
-        ) {
-            Icon(
-                imageVector = if (currentScreen == Screen.Settings) Icons.Filled.Settings else Icons.Outlined.Settings,
-                contentDescription = "Settings Icon",
-                tint = if (currentScreen == Screen.Settings) MaterialTheme.colorScheme.onPrimaryContainer else MaterialTheme.colorScheme.background
-            )
+            IconButton(
+                onClick = {
+                    viewModel.setScreen(Screen.Settings)
+                }
+            ) {
+                Icon(
+                    imageVector = if (currentScreen == Screen.Settings) Icons.Filled.Settings else Icons.Outlined.Settings,
+                    contentDescription = "Settings Icon",
+                    tint = if (currentScreen == Screen.Settings) MaterialTheme.colorScheme.onPrimaryContainer else MaterialTheme.colorScheme.background
+                )
+            }
         }
     }
 }
