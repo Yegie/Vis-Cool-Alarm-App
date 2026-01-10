@@ -1,10 +1,10 @@
 package vi.alarm.app.comps
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
@@ -19,11 +19,20 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.graphics.ImageShader
+import androidx.compose.ui.graphics.ShaderBrush
+import androidx.compose.ui.graphics.TileMode
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import vi.alarm.app.AlarmAppViewModel
+import vi.alarm.app.R
 import vi.alarm.app.Screen
 import vi.alarm.app.ui.theme.ViAlarmAppTheme
 
@@ -36,17 +45,30 @@ internal fun BottomBarView(
 ) {
     val currentScreen by viewModel.currentScreen.collectAsState()
 
-    Box(
-        modifier = Modifier
-            .background(MaterialTheme.colorScheme.primaryContainer)
-            .navigationBarsPadding()
-            .then(modifier)
-    ) {
+    val bitmap = ImageBitmap.imageResource(id = R.drawable.bottom_wall)
+    val brush = remember(bitmap) { ShaderBrush(ImageShader(bitmap, TileMode.Repeated)) }
+
+    val density = LocalDensity.current
+
+    val imageHeightDp = with(density) {
+        bitmap.height.toDp()
+    }
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(imageHeightDp)
+                .drawBehind {
+                    drawRect(brush = brush)
+                }
+                .navigationBarsPadding()
+                .then(modifier),
+        ) {
+
         Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .wrapContentHeight()
-                .padding(horizontal = 8.dp, vertical = 4.dp)
+                .padding(start = 8.dp, end = 8.dp, top = 32.dp)
                 .then(modifier),
             horizontalArrangement = Arrangement.SpaceEvenly
         ) {

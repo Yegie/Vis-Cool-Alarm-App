@@ -36,7 +36,6 @@ import vi.alarm.app.ui.theme.ViAlarmAppTheme
 @Composable
 internal fun SettingsScreenView(viewModel: AlarmAppViewModel = viewModel()) {
     val uriHandler = LocalUriHandler.current
-    val hasClickedKofi by viewModel.hasClickedKofi.collectAsState()
     val deleteUnusedAlarms by viewModel.deleteUnusedAlarms.collectAsState()
 
     BackHandler(true) {
@@ -58,24 +57,22 @@ internal fun SettingsScreenView(viewModel: AlarmAppViewModel = viewModel()) {
                 viewModel.setDeleteUnusedAlarms(!deleteUnusedAlarms)
             }
         )
-        if (!hasClickedKofi) {
-            TextButton(
-                modifier = Modifier
-                    .fillMaxWidth(),
-                shape = RectangleShape,
-                contentPadding = PaddingValues(0.dp),
-                onClick = {
-                    DataStoreRepo.getInstance()?.setHasClickedKofiButton(true)
-                    uriHandler.openUri("https://ko-fi.com/yegie")
-                }
-            ) {
-                Image(
-                    modifier = Modifier.fillMaxWidth(),
-                    painter = painterResource(R.drawable.support_me_on_kofi_red),
-                    contentScale = ContentScale.FillWidth,
-                    contentDescription = stringResource(R.string.support_me_on_kofi_button_content_desc)
-                )
+        TextButton(
+            modifier = Modifier
+                .fillMaxWidth(),
+            shape = RectangleShape,
+            contentPadding = PaddingValues(0.dp),
+            onClick = {
+                DataStoreRepo.getInstance()?.setHasClickedKofiButton(true)
+                uriHandler.openUri("https://ko-fi.com/yegie")
             }
+        ) {
+            Image(
+                modifier = Modifier.fillMaxWidth(),
+                painter = painterResource(R.drawable.support_me_on_kofi_red),
+                contentScale = ContentScale.FillWidth,
+                contentDescription = stringResource(R.string.support_me_on_kofi_button_content_desc)
+            )
         }
     }
 }

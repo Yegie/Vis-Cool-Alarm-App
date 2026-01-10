@@ -12,6 +12,9 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
+        //todo if the user has used the app for a while and has never clicked the kofi link, maybe
+        // popup a once off request for donation
+
         setContent {
             ViAlarmAppTheme {
                 AppContainerView()

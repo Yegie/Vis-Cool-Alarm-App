@@ -1,6 +1,6 @@
 package vi.alarm.app.comps
 
-import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.WindowInsetsSides
@@ -13,13 +13,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.FilterQuality
 import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.graphics.ImageShader
+import androidx.compose.ui.graphics.ShaderBrush
+import androidx.compose.ui.graphics.TileMode
 import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.tooling.preview.Devices.PIXEL_9
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.IntSize
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -46,22 +48,16 @@ internal fun AppContainerView(viewModel: AlarmAppViewModel = viewModel()) {
         navController.navigate(currentScreen.name)
     }
 
+    val bitmap = ImageBitmap.imageResource(id = R.drawable.tile_wall)
+    val brush = remember(bitmap) { ShaderBrush(ImageShader(bitmap, TileMode.Repeated, TileMode.Repeated)) }
+
     ConstraintLayout (
         modifier = Modifier
             .fillMaxSize()
+            .background(brush = brush)
     ) {
         val (bottomBar, navHost) = createRefs()
-        val bitmap = ImageBitmap.imageResource(id = R.drawable.background)
 
-        Canvas (
-            modifier = Modifier.fillMaxSize()
-        ) {
-            drawImage(
-                image = bitmap,
-                dstSize = IntSize(size.width.toInt(), size.height.toInt()),
-                filterQuality = FilterQuality.None
-            )
-        }
         BottomBarView(
             modifier = Modifier
                 .constrainAs(bottomBar) {
