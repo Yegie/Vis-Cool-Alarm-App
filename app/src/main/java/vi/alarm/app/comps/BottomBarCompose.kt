@@ -8,14 +8,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Alarm
-import androidx.compose.material.icons.filled.Settings
-import androidx.compose.material.icons.outlined.Alarm
-import androidx.compose.material.icons.outlined.Settings
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -34,6 +26,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import vi.alarm.app.AlarmAppViewModel
 import vi.alarm.app.R
 import vi.alarm.app.Screen
+import vi.alarm.app.comps.basics.BottomButtonView
 import vi.alarm.app.ui.theme.ViAlarmAppTheme
 
 //todo redo to buttons to use text instead of icons and a cooler display to hold them
@@ -68,32 +61,24 @@ internal fun BottomBarView(
             modifier = Modifier
                 .fillMaxWidth()
                 .wrapContentHeight()
-                .padding(start = 8.dp, end = 8.dp, top = 32.dp)
+                .padding(start = 8.dp, end = 8.dp, top = 40.dp)
                 .then(modifier),
             horizontalArrangement = Arrangement.SpaceEvenly
         ) {
-            IconButton(
+            BottomButtonView (
+                text = "Alarms",
+                toggled = currentScreen == Screen.Alarms,
                 onClick = {
                     viewModel.setScreen(Screen.Alarms)
                 }
-            ) {
-                Icon(
-                    imageVector = if (currentScreen == Screen.Alarms) Icons.Filled.Alarm else Icons.Outlined.Alarm,
-                    contentDescription = "Alarm Icon",
-                    tint = if (currentScreen == Screen.Alarms) MaterialTheme.colorScheme.onPrimaryContainer else MaterialTheme.colorScheme.background
-                )
-            }
-            IconButton(
+            )
+            BottomButtonView (
+                text = "Settings",
+                toggled = currentScreen == Screen.Settings,
                 onClick = {
                     viewModel.setScreen(Screen.Settings)
                 }
-            ) {
-                Icon(
-                    imageVector = if (currentScreen == Screen.Settings) Icons.Filled.Settings else Icons.Outlined.Settings,
-                    contentDescription = "Settings Icon",
-                    tint = if (currentScreen == Screen.Settings) MaterialTheme.colorScheme.onPrimaryContainer else MaterialTheme.colorScheme.background
-                )
-            }
+            )
         }
     }
 }

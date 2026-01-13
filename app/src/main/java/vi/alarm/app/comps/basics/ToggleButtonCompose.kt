@@ -6,10 +6,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ToggleOn
-import androidx.compose.material.icons.outlined.ToggleOff
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.Icon
@@ -18,8 +14,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import vi.alarm.app.R
 import vi.alarm.app.ui.theme.ViAlarmAppTheme
 
 //todo 9patch rect with pixel art? maybe like a wooden sign?
@@ -44,7 +43,7 @@ internal fun ToggleButtonView(
         ),
         enabled = enabled,
         onClick = onClick,
-        shape = RoundedCornerShape(30),
+        shape = RectangleShape,
     ) {
         Row(
             modifier = Modifier
@@ -59,8 +58,8 @@ internal fun ToggleButtonView(
                 text = text,
                 style = MaterialTheme.typography.bodyLarge
             )
-            Icon(//todo replace with pixel art checkbox
-                imageVector = if (toggled) Icons.Filled.ToggleOn else Icons.Outlined.ToggleOff,
+            Icon(
+                painter = if (toggled) painterResource(R.drawable.filled_check_box) else painterResource(R.drawable.empty_check_box),
                 contentDescription = null
             )
         }

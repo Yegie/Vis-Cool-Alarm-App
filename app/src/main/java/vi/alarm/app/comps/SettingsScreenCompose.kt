@@ -2,6 +2,7 @@ package vi.alarm.app.comps
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -10,6 +11,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -47,7 +51,8 @@ internal fun SettingsScreenView(viewModel: AlarmAppViewModel = viewModel()) {
             .fillMaxSize()
             .padding(vertical = 8.dp, horizontal = 16.dp)
             .verticalScroll(rememberScrollState()),
-        verticalArrangement = Arrangement.spacedBy(8.dp)
+        verticalArrangement = Arrangement.spacedBy(8.dp),
+
     ) {
         ToggleButtonView(
             modifier = Modifier,
@@ -74,6 +79,50 @@ internal fun SettingsScreenView(viewModel: AlarmAppViewModel = viewModel()) {
                 contentDescription = stringResource(R.string.support_me_on_kofi_button_content_desc)
             )
         }
+        HorizontalDivider(
+            thickness = 2.dp,
+            color = MaterialTheme.colorScheme.background
+        )
+        Text(
+            modifier = Modifier
+                .background(MaterialTheme.colorScheme.primaryContainer)
+                .fillMaxWidth()
+                .padding(
+                    horizontal = 24.dp,
+                    vertical = 8.dp
+                ),
+            color = MaterialTheme.colorScheme.onPrimaryContainer,
+            text = "Credits",
+            style = MaterialTheme.typography.titleMedium
+        )
+        HorizontalDivider(
+            thickness = 2.dp,
+            color = MaterialTheme.colorScheme.background
+        )
+        Text(
+            modifier = Modifier
+                .background(MaterialTheme.colorScheme.primaryContainer)
+                .fillMaxWidth()
+                .padding(
+                    horizontal = 24.dp,
+                    vertical = 8.dp
+                ),
+            color = MaterialTheme.colorScheme.onPrimaryContainer,
+            text = "Font: codeman38 via http://www.zone38.net/",
+            style = MaterialTheme.typography.bodyMedium
+        )
+        Text(
+            modifier = Modifier
+                .background(MaterialTheme.colorScheme.primaryContainer)
+                .fillMaxWidth()
+                .padding(
+                    horizontal = 24.dp,
+                    vertical = 8.dp
+                ),
+            color = MaterialTheme.colorScheme.onPrimaryContainer,
+            text = "Design & development: yegie (Vi)",
+            style = MaterialTheme.typography.bodyMedium
+        )
     }
 }
 
