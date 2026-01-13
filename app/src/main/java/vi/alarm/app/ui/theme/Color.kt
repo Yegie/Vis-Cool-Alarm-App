@@ -8,3 +8,4 @@ internal val ViLight = Color(0xff946ba6)
 internal val ViBright = Color(0xffd055da)
 
 internal val ViDarkDisabled = Color(0xff6f4582)
+internal val KofiRed = Color(0xffff5a16)

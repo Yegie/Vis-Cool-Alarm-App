@@ -5,22 +5,22 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.RectangleShape
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -32,7 +32,9 @@ import vi.alarm.app.AlarmAppViewModel
 import vi.alarm.app.DataStoreRepo
 import vi.alarm.app.R
 import vi.alarm.app.Screen
+import vi.alarm.app.comps.basics.SettingScreenTitleView
 import vi.alarm.app.comps.basics.ToggleButtonView
+import vi.alarm.app.ui.theme.KofiRed
 import vi.alarm.app.ui.theme.ViAlarmAppTheme
 
 //todo pull up on chains when selected :P
@@ -49,11 +51,17 @@ internal fun SettingsScreenView(viewModel: AlarmAppViewModel = viewModel()) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(vertical = 8.dp, horizontal = 16.dp)
+            .padding(
+                horizontal = SETTINGS_H_PAD,
+                vertical = SETTINGS_V_PAD
+            )
             .verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.spacedBy(8.dp),
 
     ) {
+        SettingScreenTitleView(
+            stringResource(R.string.settings_title)
+        )
         ToggleButtonView(
             modifier = Modifier,
             text = stringResource(R.string.automatically_delete_unused_alarms),
@@ -62,53 +70,50 @@ internal fun SettingsScreenView(viewModel: AlarmAppViewModel = viewModel()) {
                 viewModel.setDeleteUnusedAlarms(!deleteUnusedAlarms)
             }
         )
+        SettingScreenTitleView(
+            stringResource(R.string.credits_title)
+        )
         TextButton(
             modifier = Modifier
-                .fillMaxWidth(),
+                .fillMaxWidth()
+                .background(KofiRed),
             shape = RectangleShape,
-            contentPadding = PaddingValues(0.dp),
             onClick = {
                 DataStoreRepo.getInstance()?.setHasClickedKofiButton(true)
                 uriHandler.openUri("https://ko-fi.com/yegie")
             }
         ) {
-            Image(
-                modifier = Modifier.fillMaxWidth(),
-                painter = painterResource(R.drawable.support_me_on_kofi_red),
-                contentScale = ContentScale.FillWidth,
-                contentDescription = stringResource(R.string.support_me_on_kofi_button_content_desc)
-            )
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .wrapContentHeight(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    modifier = Modifier
+                        .weight(2f),
+                    text = "Support me on:",
+                    style = MaterialTheme.typography.titleLarge
+                )
+                Image(
+                    modifier = Modifier
+                        .weight(1f),
+                    painter = painterResource(R.drawable.kofi_logo),
+                    contentDescription = stringResource(R.string.support_me_on_kofi_button_content_desc)
+                )
+            }
         }
-        HorizontalDivider(
-            thickness = 2.dp,
-            color = MaterialTheme.colorScheme.background
-        )
         Text(
             modifier = Modifier
                 .background(MaterialTheme.colorScheme.primaryContainer)
                 .fillMaxWidth()
                 .padding(
-                    horizontal = 24.dp,
-                    vertical = 8.dp
+                    horizontal = SETTINGS_H_PAD,
+                    vertical = SETTINGS_V_PAD
                 ),
             color = MaterialTheme.colorScheme.onPrimaryContainer,
-            text = "Credits",
-            style = MaterialTheme.typography.titleMedium
-        )
-        HorizontalDivider(
-            thickness = 2.dp,
-            color = MaterialTheme.colorScheme.background
-        )
-        Text(
-            modifier = Modifier
-                .background(MaterialTheme.colorScheme.primaryContainer)
-                .fillMaxWidth()
-                .padding(
-                    horizontal = 24.dp,
-                    vertical = 8.dp
-                ),
-            color = MaterialTheme.colorScheme.onPrimaryContainer,
-            text = "Font: codeman38 via http://www.zone38.net/",
+            text = stringResource(R.string.font_credit),
             style = MaterialTheme.typography.bodyMedium
         )
         Text(
@@ -116,15 +121,18 @@ internal fun SettingsScreenView(viewModel: AlarmAppViewModel = viewModel()) {
                 .background(MaterialTheme.colorScheme.primaryContainer)
                 .fillMaxWidth()
                 .padding(
-                    horizontal = 24.dp,
-                    vertical = 8.dp
+                    horizontal = SETTINGS_H_PAD,
+                    vertical = SETTINGS_V_PAD
                 ),
             color = MaterialTheme.colorScheme.onPrimaryContainer,
-            text = "Design & development: yegie (Vi)",
+            text = stringResource(R.string.design_development_credit),
             style = MaterialTheme.typography.bodyMedium
         )
     }
 }
+
+internal val SETTINGS_H_PAD = 16.dp
+internal val SETTINGS_V_PAD = 8.dp
 
 @Preview(showBackground = true, device = PIXEL_9)
 @Composable

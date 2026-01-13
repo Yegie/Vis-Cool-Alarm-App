@@ -3,6 +3,7 @@ package vi.alarm.app.comps.basics
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.wrapContentHeight
@@ -19,6 +20,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import vi.alarm.app.R
+import vi.alarm.app.comps.SETTINGS_H_PAD
+import vi.alarm.app.comps.SETTINGS_V_PAD
 import vi.alarm.app.ui.theme.ViAlarmAppTheme
 
 //todo 9patch rect with pixel art? maybe like a wooden sign?
@@ -40,6 +43,10 @@ internal fun ToggleButtonView(
             contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
             disabledContainerColor = MaterialTheme.colorScheme.tertiaryContainer,
             disabledContentColor = MaterialTheme.colorScheme.onTertiaryContainer
+        ),
+        contentPadding = PaddingValues(
+            horizontal = SETTINGS_H_PAD,
+            vertical = SETTINGS_V_PAD
         ),
         enabled = enabled,
         onClick = onClick,
