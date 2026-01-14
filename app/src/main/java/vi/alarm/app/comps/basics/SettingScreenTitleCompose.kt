@@ -8,7 +8,9 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import vi.alarm.app.ui.theme.ViAlarmAppTheme
 
 @Composable
 internal fun SettingScreenTitleView(
@@ -34,4 +36,12 @@ internal fun SettingScreenTitleView(
         thickness = 2.dp,
         color = MaterialTheme.colorScheme.background
     )
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun Preview() {
+    ViAlarmAppTheme {
+        SettingScreenTitleView("Sample Title")
+    }
 }

@@ -5,6 +5,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -78,6 +79,10 @@ internal fun SettingsScreenView(viewModel: AlarmAppViewModel = viewModel()) {
                 .fillMaxWidth()
                 .background(KofiRed),
             shape = RectangleShape,
+            contentPadding = PaddingValues(
+                horizontal = SETTINGS_H_PAD,
+                vertical = SETTINGS_V_PAD
+            ),
             onClick = {
                 DataStoreRepo.getInstance()?.setHasClickedKofiButton(true)
                 uriHandler.openUri("https://ko-fi.com/yegie")
@@ -94,6 +99,7 @@ internal fun SettingsScreenView(viewModel: AlarmAppViewModel = viewModel()) {
                     modifier = Modifier
                         .weight(2f),
                     text = "Support me on:",
+                    color = MaterialTheme.colorScheme.primaryContainer,
                     style = MaterialTheme.typography.titleLarge
                 )
                 Image(
@@ -113,7 +119,7 @@ internal fun SettingsScreenView(viewModel: AlarmAppViewModel = viewModel()) {
                     vertical = SETTINGS_V_PAD
                 ),
             color = MaterialTheme.colorScheme.onPrimaryContainer,
-            text = stringResource(R.string.font_credit),
+            text = stringResource(R.string.design_development_credit),
             style = MaterialTheme.typography.bodyMedium
         )
         Text(
@@ -125,7 +131,7 @@ internal fun SettingsScreenView(viewModel: AlarmAppViewModel = viewModel()) {
                     vertical = SETTINGS_V_PAD
                 ),
             color = MaterialTheme.colorScheme.onPrimaryContainer,
-            text = stringResource(R.string.design_development_credit),
+            text = stringResource(R.string.font_credit),
             style = MaterialTheme.typography.bodyMedium
         )
     }

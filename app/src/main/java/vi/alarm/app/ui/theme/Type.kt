@@ -12,6 +12,10 @@ internal val dpComic = FontFamily(
 )
 private val defaultTypography = Typography()
 internal val Typography = Typography(
+    displayLarge = defaultTypography.displayLarge.copy(fontFamily = dpComic, fontSize = 34.sp, lineHeight = 40.sp, letterSpacing = 0.sp),
+    displayMedium = defaultTypography.displayMedium.copy(fontFamily = dpComic, fontSize = 30.sp, lineHeight = 36.sp, letterSpacing = 0.sp),
+    displaySmall = defaultTypography.displaySmall.copy(fontFamily = dpComic, fontSize = 26.sp, lineHeight = 32.sp, letterSpacing = 0.sp),
+
     titleLarge = defaultTypography.titleLarge.copy(fontFamily = dpComic, fontSize = 24.sp),
     titleMedium = defaultTypography.titleMedium.copy(fontFamily = dpComic, fontSize = 23.sp),
     titleSmall = defaultTypography.titleSmall.copy(fontFamily = dpComic, fontSize = 22.sp),
