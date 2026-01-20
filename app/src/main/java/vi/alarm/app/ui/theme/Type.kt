@@ -20,6 +20,14 @@ internal val Typography = Typography(
     titleMedium = defaultTypography.titleMedium.copy(fontFamily = dpComic, fontSize = 23.sp),
     titleSmall = defaultTypography.titleSmall.copy(fontFamily = dpComic, fontSize = 22.sp),
 
+    headlineLarge = defaultTypography.headlineLarge.copy(fontFamily = dpComic, fontSize = 24.sp),
+    headlineMedium = defaultTypography.headlineMedium.copy(fontFamily = dpComic, fontSize = 23.sp),
+    headlineSmall = defaultTypography.headlineSmall.copy(fontFamily = dpComic, fontSize = 22.sp),
+
+    labelLarge = defaultTypography.labelLarge.copy(fontFamily = dpComic, fontSize = 14.sp),
+    labelMedium = defaultTypography.labelMedium.copy(fontFamily = dpComic, fontSize = 13.sp),
+    labelSmall = defaultTypography.labelSmall.copy(fontFamily = dpComic, fontSize = 12.sp),
+
     bodyLarge = defaultTypography.bodyLarge.copy(fontFamily = dpComic, fontSize = 20.sp),
     bodyMedium = defaultTypography.bodyMedium.copy(fontFamily = dpComic, fontSize = 18.sp),
     bodySmall = defaultTypography.bodySmall.copy(fontFamily = dpComic, fontSize = 16.sp),

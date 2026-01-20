@@ -23,10 +23,10 @@ import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import vi.alarm.app.AlarmAppViewModel
 import vi.alarm.app.R
-import vi.alarm.app.Screen
 import vi.alarm.app.comps.basics.BottomButtonView
+import vi.alarm.app.data.AlarmAppViewModel
+import vi.alarm.app.data.Screen
 import vi.alarm.app.ui.theme.ViAlarmAppTheme
 
 //todo redo to buttons to use text instead of icons and a cooler display to hold them

@@ -28,21 +28,18 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import vi.alarm.app.AlarmAppViewModel
 import vi.alarm.app.R
-import vi.alarm.app.Screen
+import vi.alarm.app.data.AlarmAppViewModel
+import vi.alarm.app.data.Screen
 import vi.alarm.app.ui.theme.ViAlarmAppTheme
 
-//todo gurl this aint nearly cool enough, we gotta up the cool by like 5x at least
-
 @Composable
-internal fun AppContainerView(viewModel: AlarmAppViewModel = viewModel()) {
+internal fun AppContainerView(
+    newAlarmClicked: () -> Unit,
+    viewModel: AlarmAppViewModel = viewModel()
+) {
     val navController = rememberNavController()
     val currentScreen by viewModel.currentScreen.collectAsState()
-
-    LaunchedEffect(Unit) {
-        viewModel.loadValuesFromPrefs()
-    }
 
     LaunchedEffect(currentScreen) {
         navController.navigate(currentScreen.name)
@@ -89,6 +86,8 @@ internal fun AppContainerView(viewModel: AlarmAppViewModel = viewModel()) {
                 }
             }
         }
+
+        // todo add button that calls the newAlarmClicked method
     }
 }
 
@@ -96,6 +95,6 @@ internal fun AppContainerView(viewModel: AlarmAppViewModel = viewModel()) {
 @Composable
 private fun Preview() {
     ViAlarmAppTheme {
-        AppContainerView()
+        AppContainerView({})
     }
 }

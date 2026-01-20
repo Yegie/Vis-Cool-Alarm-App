@@ -29,12 +29,12 @@ import androidx.compose.ui.tooling.preview.Devices.PIXEL_9
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import vi.alarm.app.AlarmAppViewModel
 import vi.alarm.app.DataStoreRepo
 import vi.alarm.app.R
-import vi.alarm.app.Screen
 import vi.alarm.app.comps.basics.SettingScreenTitleView
 import vi.alarm.app.comps.basics.ToggleButtonView
+import vi.alarm.app.data.AlarmAppViewModel
+import vi.alarm.app.data.Screen
 import vi.alarm.app.ui.theme.KofiRed
 import vi.alarm.app.ui.theme.ViAlarmAppTheme
 
