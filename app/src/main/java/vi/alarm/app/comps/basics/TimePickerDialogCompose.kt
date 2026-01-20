@@ -6,21 +6,21 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TimePicker
-import androidx.compose.material3.TimePickerState
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.RectangleShape
 import vi.alarm.app.data.AlarmEntryViewModel
 
-
+//todo refactor, should not need view model
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun TimePickerDialog(
-    onConfirm: (TimePickerState) -> Unit,
+    onConfirm: (hour: Int, minute: Int) -> Unit,
     onDismiss: () -> Unit,
     viewModel: AlarmEntryViewModel
 ) {
     BasicDialog(
         onDismiss = { onDismiss() },
-        onConfirm = { onConfirm(viewModel.time) }
+        onConfirm = { onConfirm(viewModel.time.hour, viewModel.time.minute) }
     ) {
         TimePicker(
             state = viewModel.time,
@@ -35,6 +35,7 @@ private fun BasicDialog(
     content: @Composable () -> Unit
 ) {
     AlertDialog(
+        shape = RectangleShape,
         onDismissRequest = onDismiss,
         dismissButton = {
             TextButton(onClick = { onDismiss() }) {

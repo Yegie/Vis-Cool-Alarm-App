@@ -1,6 +1,5 @@
 package vi.alarm.app.data
 
-import android.app.Application
 import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.TimePickerState
@@ -15,7 +14,7 @@ import vi.alarm.app.data.room.AlarmEntry
 
 @OptIn(ExperimentalMaterial3Api::class)
 internal class AlarmEntryViewModel(
-    private val alarmEntry: AlarmEntry
+    alarmEntry: AlarmEntry
 ): ViewModel() {
     //ui
     private val _showTimePickerDialog: MutableStateFlow<Boolean> = MutableStateFlow(false)
@@ -24,6 +23,10 @@ internal class AlarmEntryViewModel(
     val compacted: StateFlow<Boolean> = _compacted.asStateFlow()
 
     //data
+    private val _alarmEntry: MutableStateFlow<AlarmEntry> = MutableStateFlow(alarmEntry)
+    val alarmEntry: StateFlow<AlarmEntry> = _alarmEntry.asStateFlow()
+
+    //todo get rid of these two from in here
     val title: TextFieldState = TextFieldState(alarmEntry.title)
     val time: TimePickerState = TimePickerState(
         initialHour = alarmEntry.hour,
@@ -31,6 +34,7 @@ internal class AlarmEntryViewModel(
         is24Hour = false,
     )
 
+    //setters
     fun setShouldShowTimePicker(value: Boolean) {
         viewModelScope.launch {
             _showTimePickerDialog.value = value
@@ -40,13 +44,24 @@ internal class AlarmEntryViewModel(
     fun setCompacted(value: Boolean) {
         viewModelScope.launch {
             _compacted.value = value
+            if (!value)
+                emitCompactSignal(onCompactSignal)
         }
     }
 
+    fun setTime(hour: Int, minute: Int) {
+        viewModelScope.launch {
+            _alarmEntry.value = _alarmEntry.value.copy(
+                hour = hour,
+                minute = minute
+            )
+        }
+    }
+
+    //signal stuff
     val onCompactSignal: () -> Unit = {
         viewModelScope.launch {
             _compacted.value = true
-            emitCompactSignal(onCompactSignal)
         }
     }
 
@@ -59,9 +74,8 @@ internal class AlarmEntryViewModel(
     }
 
     class Factory(
-        application: Application,
         private val alarmEntry: AlarmEntry
-    ) : ViewModelProvider.AndroidViewModelFactory(application) {
+    ) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(AlarmEntryViewModel::class.java)) {
                 @Suppress("UNCHECKED_CAST")
@@ -71,6 +85,8 @@ internal class AlarmEntryViewModel(
         }
     }
 
+    //todo this is not the best way to do this. given the current scope it works, but if the
+    // signal system gets expanded should refactor to proper AppEvent system
     companion object {
         private val listeners: MutableList<() -> Unit> = mutableListOf()
 

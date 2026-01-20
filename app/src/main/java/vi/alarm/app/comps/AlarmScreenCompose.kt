@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.LocalActivity
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -17,6 +18,7 @@ import androidx.compose.ui.tooling.preview.Devices.PIXEL_9
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import vi.alarm.app.comps.alarmentry.AlarmEntryView
 import vi.alarm.app.data.AlarmAppViewModel
 import vi.alarm.app.ui.theme.ViAlarmAppTheme
 import java.lang.ref.WeakReference
@@ -35,7 +37,8 @@ internal fun AlarmScreenView(viewModel: AlarmAppViewModel = viewModel()) {
         modifier = Modifier
             .fillMaxSize()
             .padding(horizontal = 8.dp, vertical = 4.dp)
-            .verticalScroll(rememberScrollState())
+            .verticalScroll(rememberScrollState()),
+        verticalArrangement = Arrangement.spacedBy(6.dp)
     ) {
         alarms.forEach { alarmViewModel ->
             AlarmEntryView(viewModel = alarmViewModel)

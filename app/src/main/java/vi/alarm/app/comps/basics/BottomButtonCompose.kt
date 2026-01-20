@@ -18,7 +18,7 @@ import vi.alarm.app.ui.theme.ViAlarmAppTheme
 @Composable
 internal fun BottomButtonView(
     text: String,
-    toggled: Boolean,
+    toggled: Boolean, //todo some sort of pressed in indicator
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     enabled: Boolean = true
@@ -36,6 +36,7 @@ internal fun BottomButtonView(
         ),
         shape = RectangleShape,
     ) {
+        //todo temporary, make prettier later
         Text (
             modifier = Modifier
                 .padding(

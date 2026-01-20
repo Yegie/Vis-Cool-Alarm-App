@@ -7,8 +7,13 @@ import androidx.compose.foundation.layout.WindowInsetsSides
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.only
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.windowInsetsPadding
+import androidx.compose.material3.ButtonColors
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -17,14 +22,15 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.ImageShader
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.ShaderBrush
 import androidx.compose.ui.graphics.TileMode
 import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.tooling.preview.Devices.PIXEL_9
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -36,7 +42,7 @@ import vi.alarm.app.ui.theme.ViAlarmAppTheme
 @Composable
 internal fun AppContainerView(
     newAlarmClicked: () -> Unit,
-    viewModel: AlarmAppViewModel = viewModel()
+    viewModel: AlarmAppViewModel
 ) {
     val navController = rememberNavController()
     val currentScreen by viewModel.currentScreen.collectAsState()
@@ -53,7 +59,7 @@ internal fun AppContainerView(
             .fillMaxSize()
             .background(brush = brush)
     ) {
-        val (bottomBar, navHost) = createRefs()
+        val (bottomBar, navHost, newButton) = createRefs()
 
         BottomBarView(
             modifier = Modifier
@@ -87,6 +93,32 @@ internal fun AppContainerView(
             }
         }
 
+        TextButton(
+            modifier = Modifier
+                .padding(8.dp)
+                .constrainAs(newButton) {
+                    start.linkTo(parent.start)
+                    bottom.linkTo(bottomBar.top)
+                    height = Dimension.wrapContent
+                },
+            shape = RectangleShape,
+            colors = ButtonColors(
+                containerColor = MaterialTheme.colorScheme.primaryContainer,
+                contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
+                disabledContainerColor = MaterialTheme.colorScheme.tertiaryContainer,
+                disabledContentColor = MaterialTheme.colorScheme.onTertiaryContainer
+            ),
+            onClick = newAlarmClicked
+        ) {
+            //todo temporary, make prettier later
+            Text(
+                modifier = Modifier
+                    .padding(8.dp),
+                text = "NEW",
+
+            )
+        }
+
         // todo add button that calls the newAlarmClicked method
     }
 }
@@ -95,6 +127,7 @@ internal fun AppContainerView(
 @Composable
 private fun Preview() {
     ViAlarmAppTheme {
-        AppContainerView({})
+        val viewModel = AlarmAppViewModel(mutableListOf())
+        AppContainerView({}, viewModel)
     }
 }

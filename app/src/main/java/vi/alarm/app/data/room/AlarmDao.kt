@@ -11,7 +11,7 @@ internal interface AlarmDao {
     @Query("SELECT * FROM $ALARMS_TABLE_NAME")
     fun getAll(): List<AlarmEntry>
 
-    @Query("SELECT :id FROM $ALARMS_TABLE_NAME")
+    @Query("SELECT * FROM $ALARMS_TABLE_NAME WHERE id = :id")
     fun get(id: Int): List<AlarmEntry>
 
     @Insert(onConflict = REPLACE)
@@ -20,7 +20,7 @@ internal interface AlarmDao {
     @Delete
     fun delete(alarm: AlarmEntry)
 
-    @Query("DELETE FROM $ALARMS_TABLE_NAME where uuid = :id")
+    @Query("DELETE FROM $ALARMS_TABLE_NAME WHERE id = :id")
     fun delete(id: Int)
 }
 
